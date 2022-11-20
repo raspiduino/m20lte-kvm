@@ -93,6 +93,10 @@
 #include <linux/sec_ext.h>
 #endif
 
+#ifdef CONFIG_KVM
+#include <linux/arm-kvm.h>
+#endif
+
 #ifdef CONFIG_UH
 #include <../drivers/uh/uh_reserve_mem.h>
 #include <linux/uh.h>
@@ -733,7 +737,14 @@ asmlinkage __visible void __init start_kernel(void)
 	trap_init();
 	mm_init();
 
+#ifdef CONFIG_KVM
+    preinit_hyp_mode();
+#endif
+
 #ifdef CONFIG_UH_RKP
+#ifdef CONFIG_KVM
+#error "RKP and KVM cannot coexist!"
+#endif /* CONFIG_KVM */
 #ifdef CONFIG_KNOX_KAP
 	if (boot_mode_security)
 #endif

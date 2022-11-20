@@ -17,9 +17,11 @@ _uh_disable:
 	smc #0
 	isb
 
+/*
 .global _start_uh
 _start_uh:
 .incbin uh_ELF_PATH
 .global _end_uh
 _end_uh:
+*/
 .section .text

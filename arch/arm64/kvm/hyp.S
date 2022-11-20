@@ -494,7 +494,11 @@
 .endm
 
 .macro deactivate_traps
-	mov_q	x2, HCR_HOST_NVHE_FLAGS
+	//mov_q	x2, HCR_HOST_NVHE_FLAGS
+    movz	x2, :abs_g2_s:HCR_HOST_NVHE_FLAGS
+    movk	x2, :abs_g1_nc:HCR_HOST_NVHE_FLAGS
+    movk	x2, :abs_g0_nc:HCR_HOST_NVHE_FLAGS
+
 	msr	hcr_el2, x2
 	msr	hstr_el2, xzr
 
